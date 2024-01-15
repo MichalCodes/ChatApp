@@ -10,6 +10,7 @@ public class Client {
         System.out.println("Client: Connection established");
         System.out.println("Server commands:\n 'exit' - close the connection, 'down' - downs the server");
     }
+
     public void sendMessage(String message) {
         try {
             this.socketOutputStream.write(message);
@@ -19,6 +20,7 @@ public class Client {
             e.printStackTrace();
         }
     }
+
     public void close() throws IOException {
         this.socket.close();
     }
