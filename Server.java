@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.util.Date;
 
 public class Server implements Runnable {
-    private DatagramSocket socket;
+    private final DatagramSocket socket;
 
     public Server(int port) throws SocketException {
         this.socket = new DatagramSocket(port);
@@ -17,14 +17,13 @@ public class Server implements Runnable {
     public void run() {
         try {
             String message;
-
             do {
-                DatagramPacket packet = new DatagramPacket(new byte[512], 512);
+                DatagramPacket packet = new DatagramPacket(new byte[512], 512); //přímám jako UDP
                 this.socket.receive(packet);
                 message = new String(packet.getData(), 9, this.parseMessageLength(packet.getData()));
 
                 System.out.println(this.formatOutput(packet));
-            } while (!message.equalsIgnoreCase("down"));
+            } while (!message.equalsIgnoreCase("down")); //comand to down the server
 
             this.close();
         } catch (IOException e) {
